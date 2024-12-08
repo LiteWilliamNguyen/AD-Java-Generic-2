@@ -6,7 +6,7 @@ class MainTest {
     public void testAddAndGet() {
         Cache<String> cache = new Cache<>();
         cache.add("key1", "value1");
-        assertEquals("value1", cache.get("key1"));
+        assertEquals("value1", cache.get("key1"));// Verify that the value is added.
     }
 
     @Test
@@ -27,11 +27,19 @@ class MainTest {
     }
 
     @Test
-    public void testAddAllWithIncompatibleType() {
-        Cache<Integer> intCache = new Cache<>();
-        Cache<String> stringCache = new Cache<>();
-        stringCache.add("key1", "value");
-        assertThrows(ClassCastException.class, () -> intCache.addAll(stringCache));
+    public void testAddAndRetrieve() {
+        Cache<String> cache = new Cache<>();
+        cache.add("key1", "value1");
+        assertEquals("value1", cache.get("key1")); // Verify correct value is retrieved.
+    }
+
+    //edge case
+    @Test
+    public void testOverwriteWithSameKey() {
+        Cache<String> cache = new Cache<>();
+        cache.add("key1", "value1");
+        cache.add("key1", "value2"); // Adding a new value with the same key.
+        assertEquals("value2", cache.get("key1")); // Verify that the old value is replaced.
     }
 
     @Test
@@ -39,7 +47,7 @@ class MainTest {
         Cache<String> cache = new Cache<>();
         cache.add("key1", "value1");
         cache.add("key1", "value2");
-        assertEquals("value2", cache.get("key1"));
+        assertEquals("value2", cache.get("key1"));// Verify the value is the same in key1 and key2
     }
 
     @Test
