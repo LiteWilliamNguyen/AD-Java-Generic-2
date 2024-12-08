@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -107,4 +109,32 @@ class SortUtility {
     }
 }
 
+//Part 3: Complex Generic Scenarios
+//Generic Cache Implementation
+//Design and implement a Cache<T> class that can store instances of type T. The cache should have methods to add items, retrieve items by key, and clear the cache.
+//Utilize bounded wildcards to implement a method addAll that can add all items from one cache to another, provided they are of compatible types.
+class Cache<T> {
+    private Map<String, T> cache;
 
+    public Cache() {
+        this.cache = new HashMap<>();
+    }
+
+    public void add(String key, T value) {
+        cache.put(key, value);
+    }
+
+    public T get(String key) {
+        return cache.get(key);
+    }
+
+    public void clear() {
+        cache.clear();
+    }
+
+    public void addAll(Cache<? extends T> other) {
+        for (Map.Entry<String, ? extends T> entry : other.cache.entrySet()) {
+            this.cache.put(entry.getKey(), entry.getValue());
+        }
+    }
+}
